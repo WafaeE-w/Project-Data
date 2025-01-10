@@ -1,0 +1,63 @@
+<!-- visualisation.html-->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Titre principal de la page -->
+<h1 class="text-center">Data Visualization</h1>
+
+<!-- Section contenant le formulaire pour entrer les paramètres de visualisation -->
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <!-- Formulaire permettant de saisir les colonnes X et Y ainsi que le type de graphique -->
+        <form method="get">
+            <!-- Champ pour entrer la colonne X -->
+            <div class="mb-3">
+                <label for="colonne_x" class="form-label">Column X:</label>
+                <input type="text" id="colonne_x" name="colonne_x" class="form-control" placeholder="Enter X column">
+            </div>
+            <!-- Champ pour entrer la colonne Y -->
+            <div class="mb-3">
+                <label for="colonne_y" class="form-label">Column Y:</label>
+                <input type="text" id="colonne_y" name="colonne_y" class="form-control" placeholder="Enter Y column">
+            </div>
+            <!-- Sélecteur pour choisir le type de graphique -->
+            <div class="mb-3">
+                <label for="graph_type" class="form-label">Graph Type:</label>
+                <select id="graph_type" name="graph_type" class="form-select">
+                    <option value="scatter">Scatter Plot</option>
+                    <option value="line">Line Plot</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="hist">Histogram</option>
+                    <option value="heatmap">Heatmap</option>
+                    <option value="pie">Pie Chart</option>
+                    <option value="boxplot">Boxplot</option>
+                    <option value="pairplot">Pairplot</option>
+                </select>
+            </div>
+            <!-- Bouton pour soumettre le formulaire -->
+            <button type="submit" class="btn btn-primary w-100">Visualize</button>
+        </form>
+
+        <!-- Ligne séparatrice entre le formulaire et les résultats -->
+        <hr>
+
+        <!-- Section pour afficher le graphique généré ou les messages d'erreur -->
+        {% if image %}
+            <!-- Affichage de l'image du graphique sous forme de base64 -->
+            <img src="data:image/png;base64,{{ image }}" alt="Graph" class="img-fluid mt-3">
+        {% elif error %}
+            <!-- Affichage d'un message d'erreur en cas de problème -->
+            <p class="text-danger">{{ error }}</p>
+        {% else %}
+            <!-- Message par défaut indiquant les options disponibles pour les types de graphiques -->
+            <p class="text-warning">Please select the appropriate options for the graph type.</p>
+            <ul>
+                <li><strong>Heatmap:</strong> No columns needed.</li>
+                <li><strong>Pie Chart:</strong> Select one column.</li>
+                <li><strong>Pairplot:</strong> No specific selection needed.</li>
+            </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

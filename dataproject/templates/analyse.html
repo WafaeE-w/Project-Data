@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--analyse.html -->
+{% block content %}
+    <h1 class="text-center">Statistical Analysis</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="get">
+                <div class="mb-3">
+                    <label for="colonne" class="form-label">Column Name:</label>
+                    <input type="text" id="colonne" name="colonne" class="form-control" placeholder="Enter column name">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Analyze</button>
+            </form>
+            <hr>
+            {% if stats %}
+                <h2>Statistics for column {{ colonne }}:</h2>
+                <ul>
+                    {% for key, value in stats.items %}
+                        <li>{{ key }}: {{ value }}</li>
+                    {% endfor %}
+                </ul>
+            {% elif stats == None %}
+                <p class="text-danger">Please select a column.</p>
+            {% else %}
+                <p class="text-danger">{{ stats }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
